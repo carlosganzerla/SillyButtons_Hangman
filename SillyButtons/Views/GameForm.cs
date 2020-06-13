@@ -11,6 +11,7 @@ namespace SillyButtons.Views
         {
             InitializeComponent();
             AddAlphabetButtons();
+            CenterToScreen();
         }
 
         private void AddAlphabetButtons()

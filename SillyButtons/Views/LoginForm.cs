@@ -17,6 +17,7 @@ namespace SillyButtons.Views
         public LoginForm()
         {
             InitializeComponent();
+            CenterToScreen();
         }
 
         public event EventHandler StartGame

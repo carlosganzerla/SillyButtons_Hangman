@@ -20,7 +20,7 @@ namespace SillyButtons
             Application.SetCompatibleTextRenderingDefault(false);
             var loginView = new LoginForm();
             var store = new FilePlayerStore("players.store");
-            var loader = new ViewLoader(new HangmanGame(), new SingleWordGenerator());
+            var loader = new ViewLoader(new HangmanGame(), new RandomWordApiGenerator(Constants.RandomWordApiAddress));
             var loginPresenter = new LoginPresenter(loginView, store, loader);
             Application.Run(loginView);
         }

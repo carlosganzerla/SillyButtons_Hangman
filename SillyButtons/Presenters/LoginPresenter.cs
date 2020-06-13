@@ -18,7 +18,6 @@ namespace SillyButtons.Presenters
             view.StartGame += OnStartGame;
         }
 
-
         public void RefreshNames()
         {
             view.SetNames(playerStore.GetPlayerList());

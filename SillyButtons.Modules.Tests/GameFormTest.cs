@@ -2,6 +2,7 @@
 using SillyButtons.Properties;
 using SillyButtons.Views;
 using System.Drawing;
+using System.IO;
 using System.Text;
 
 namespace SillyButtons.Modules.Tests
@@ -154,8 +155,7 @@ namespace SillyButtons.Modules.Tests
         [TestCase(10)]
         public void TestShowHangman_InvalidNumberOfGuessesRemaining(int remaining)
         {
-            form.ShowHangman(remaining);
-            Assert.IsNull(form.hangmanImage.Image);
+            Assert.Throws<FileNotFoundException>(() => form.ShowHangman(remaining));
         }
 
         [Test]

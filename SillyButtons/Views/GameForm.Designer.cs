@@ -54,7 +54,8 @@
             this.scoreCharsPanel.Location = new System.Drawing.Point(230, 5);
             this.scoreCharsPanel.Margin = new System.Windows.Forms.Padding(0);
             this.scoreCharsPanel.Name = "scoreCharsPanel";
-            this.scoreCharsPanel.Size = new System.Drawing.Size(494, 83);
+            this.scoreCharsPanel.Padding = new System.Windows.Forms.Padding(50, 20, 50, 20);
+            this.scoreCharsPanel.Size = new System.Drawing.Size(494, 86);
             this.scoreCharsPanel.TabIndex = 0;
             // 
             // hangmanImage
@@ -100,7 +101,7 @@
             this.Controls.Add(this.scoreCharsPanel);
             this.Controls.Add(this.charButtonsPanel);
             this.Name = "GameForm";
-            this.Text = "GameForm";
+            this.Text = "The Hangman Game";
             this.Load += new System.EventHandler(this.GameForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.hangmanImage)).EndInit();
             this.ResumeLayout(false);

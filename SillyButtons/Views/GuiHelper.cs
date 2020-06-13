@@ -1,5 +1,7 @@
 ﻿using SillyButtons.Properties;
+using System;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
@@ -25,16 +27,14 @@ namespace SillyButtons.Views
 
         public static Bitmap GetHangmanImage(int remainingGuesses)
         {
-            var property = typeof(Resources).GetProperties(BindingFlags.Static | BindingFlags.Public)
-                    .Where(x => x.Name.Equals($"hangman_remaining_{remainingGuesses}")).FirstOrDefault();
-            if (property != null)
+            string resourceFile = $"hangman_remaining_{remainingGuesses}";
+            var imageResourceProperty = typeof(Resources).GetProperties(BindingFlags.Static | BindingFlags.Public)
+                    .Where(x => x.Name.Equals(resourceFile)).FirstOrDefault();
+            if (imageResourceProperty != null)
             {
-                return (Bitmap)property.GetValue(null);
+                return (Bitmap)imageResourceProperty.GetValue(null);
             }
-            else
-            {
-                return null;
-            }
+            throw new FileNotFoundException($"Resource file {resourceFile} not found.");
         }
 
         public static Label CreateCharScoreLabel(char letter)

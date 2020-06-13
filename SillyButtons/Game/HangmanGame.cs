@@ -23,48 +23,33 @@ namespace SillyButtons.Game
             }
         }
         public GameStatus Status { get; private set; }
-
+        public int RemainingGuesses { get; private set; }
         private void ResetScore(int secretWordLength)
+        {
+            ResetGameVariables();
+            ResetDisplayWord(secretWordLength);
+        }
+
+        private void ResetGameVariables()
         {
             Status = GameStatus.Playing;
             RemainingGuesses = Constants.MaximumGuesses;
             guessedCharacters.Clear();
+        }
+
+        private void ResetDisplayWord(int length)
+        {
             displayWord.Clear();
-            for (int i = 0; i < secretWordLength; i++)
+            for (int i = 0; i < length; i++)
             {
                 displayWord.Append(" ");
             }
         }
 
-
         public void SetSecretWord(string word)
         {
             secretWord = word;
             ResetScore(word.Length);
-        }
-
-        public int RemainingGuesses { get; private set; }
-
-        private void UpdateRemainingGuesses()
-        {
-            RemainingGuesses--;
-            if (RemainingGuesses == 0)
-            {
-                Status = GameStatus.Lost;
-            }
-        }
-
-        private void UpdateScore(char guess)
-        {
-            guessedCharacters.Append(guess);
-            if (!secretWord.Contains(guess))
-            {
-                UpdateRemainingGuesses();
-            }
-            else
-            {
-                UpdateDisplayWord(guess);
-            }
         }
 
         public void MakeGuess(char guess)
@@ -80,6 +65,21 @@ namespace SillyButtons.Game
             return Status == GameStatus.Playing && !GuessedCharacters.Contains(guess);
         }
 
+        private void UpdateScore(char guess)
+        {
+            guessedCharacters.Append(guess);
+            if (!secretWord.Contains(guess))
+            {
+                RemainingGuesses--;
+                CheckDefeat();
+            }
+            else
+            {
+                UpdateDisplayWord(guess);
+                CheckVictory();
+            }
+        }
+
         private void UpdateDisplayWord(char guess)
         {
             for (int i = 0; i < secretWord.Length; i++)
@@ -89,9 +89,21 @@ namespace SillyButtons.Game
                     displayWord[i] = guess;
                 }
             }
+        }
+
+        private void CheckVictory()
+        {
             if (DisplayWord == secretWord)
             {
                 Status = GameStatus.Won;
+            }
+        }
+
+        private void CheckDefeat()
+        {
+            if (RemainingGuesses == 0)
+            {
+                Status = GameStatus.Lost;
             }
         }
     }
