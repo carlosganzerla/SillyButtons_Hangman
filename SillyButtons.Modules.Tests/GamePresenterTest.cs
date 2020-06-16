@@ -1,7 +1,7 @@
 ﻿using Moq;
 using NUnit.Framework;
-using SillyButtons.Game;
-using SillyButtons.Interfaces;
+using SillyButtons.Abstractions;
+using SillyButtons.Hangman;
 using SillyButtons.Presenters;
 
 namespace SillyButtons.Modules.Tests

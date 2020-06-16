@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SillyButtons.Interfaces
+namespace SillyButtons.Abstractions
 {
     public interface IGameView
     {

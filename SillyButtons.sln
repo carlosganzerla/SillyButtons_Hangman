@@ -9,9 +9,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4E7DF599
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SilyButtons.Acceptance.Tests", "SilyButtons.Acceptance.Tests\SilyButtons.Acceptance.Tests.csproj", "{074BEB96-993F-4F9B-A3D6-8CEEC5F7AF3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SillyButtons.Modules.Tests", "SillyButtons.Modules.Tests\SillyButtons.Modules.Tests.csproj", "{E4D86341-BEC2-4984-B5FA-0F9D19A883E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SillyButtons.Modules.Tests", "SillyButtons.Modules.Tests\SillyButtons.Modules.Tests.csproj", "{E4D86341-BEC2-4984-B5FA-0F9D19A883E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SillyButtons", "SillyButtons\SillyButtons.csproj", "{287CC1BE-7121-4961-8811-83E1F156DFB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SillyButtons", "SillyButtons\SillyButtons.csproj", "{287CC1BE-7121-4961-8811-83E1F156DFB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SillyButtons.Abstractions", "SillyButtons.Abstractions\SillyButtons.Abstractions.csproj", "{72C6A5DD-D4E8-4765-8493-D6F78C3CFB8B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SillyButtons.Hangman", "SillyButtons.Game\SillyButtons.Hangman.csproj", "{2F20DF2A-2309-4F3A-AD33-F93D9F8134AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +35,14 @@ Global
 		{287CC1BE-7121-4961-8811-83E1F156DFB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{287CC1BE-7121-4961-8811-83E1F156DFB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{287CC1BE-7121-4961-8811-83E1F156DFB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72C6A5DD-D4E8-4765-8493-D6F78C3CFB8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72C6A5DD-D4E8-4765-8493-D6F78C3CFB8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72C6A5DD-D4E8-4765-8493-D6F78C3CFB8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72C6A5DD-D4E8-4765-8493-D6F78C3CFB8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F20DF2A-2309-4F3A-AD33-F93D9F8134AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F20DF2A-2309-4F3A-AD33-F93D9F8134AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F20DF2A-2309-4F3A-AD33-F93D9F8134AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F20DF2A-2309-4F3A-AD33-F93D9F8134AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,6 +51,8 @@ Global
 		{074BEB96-993F-4F9B-A3D6-8CEEC5F7AF3D} = {4E7DF599-91C2-4EE9-B61F-4393243352CD}
 		{E4D86341-BEC2-4984-B5FA-0F9D19A883E1} = {4E7DF599-91C2-4EE9-B61F-4393243352CD}
 		{287CC1BE-7121-4961-8811-83E1F156DFB3} = {04F169C4-9B1F-4B04-880B-849F200833A4}
+		{72C6A5DD-D4E8-4765-8493-D6F78C3CFB8B} = {04F169C4-9B1F-4B04-880B-849F200833A4}
+		{2F20DF2A-2309-4F3A-AD33-F93D9F8134AF} = {04F169C4-9B1F-4B04-880B-849F200833A4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B1DE78AC-02C3-4214-B1EB-C40F36C6734E}

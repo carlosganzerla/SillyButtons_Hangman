@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using SillyButtons.Stores;
+using SillyButtons.Hangman.Stores;
 using System;
 using System.IO;
 using System.Linq;

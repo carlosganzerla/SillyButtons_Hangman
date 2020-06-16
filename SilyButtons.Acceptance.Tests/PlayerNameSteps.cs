@@ -1,8 +1,8 @@
 ﻿using Moq;
 using NUnit.Framework;
-using SillyButtons.Interfaces;
+using SillyButtons.Abstractions;
+using SillyButtons.Hangman.Stores;
 using SillyButtons.Presenters;
-using SillyButtons.Stores;
 using SillyButtons.Views;
 using System;
 using System.Collections;
@@ -13,11 +13,11 @@ using TechTalk.SpecFlow;
 namespace SilyButtons.Acceptance.Tests
 {
     [Binding]
-    public class LoginScreenSteps
+    public class PlayerNameSteps
     {
-        private readonly LoginForm view;
+        private readonly PlayerNameForm view;
         private readonly FilePlayerStore store;
-        private LoginPresenter presenter;
+        private PlayerNamePresenter presenter;
         private readonly Mock<IViewLoader> loader;
 
         private IList listItems;
@@ -29,12 +29,12 @@ namespace SilyButtons.Acceptance.Tests
         }
 
 
-        public LoginScreenSteps()
+        public PlayerNameSteps()
         {
             loader = new Mock<IViewLoader>();
-            view = new LoginForm();
+            view = new PlayerNameForm();
             store = new FilePlayerStore(filePath);
-            presenter = new LoginPresenter(view, store, loader.Object);
+            presenter = new PlayerNamePresenter(view, store, loader.Object);
         }
 
         [Given(@"I am on the login screen")]

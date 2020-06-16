@@ -1,4 +1,4 @@
-﻿namespace SillyButtons.Game
+﻿namespace SillyButtons.Abstractions
 {
     public enum GameStatus
     {

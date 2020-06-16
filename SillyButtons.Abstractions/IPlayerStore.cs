@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SillyButtons.Interfaces
+namespace SillyButtons.Abstractions
 {
     public interface IPlayerStore
     {

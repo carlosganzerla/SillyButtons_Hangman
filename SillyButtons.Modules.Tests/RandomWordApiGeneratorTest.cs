@@ -1,9 +1,6 @@
 ﻿using NUnit.Framework;
-using SillyButtons.Game;
-using System;
-using System.Collections.Generic;
+using SillyButtons.Hangman;
 using System.Linq;
-using System.Text;
 
 namespace SillyButtons.Modules.Tests
 {

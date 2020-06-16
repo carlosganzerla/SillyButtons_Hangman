@@ -1,6 +1,6 @@
 ﻿namespace SillyButtons.Views
 {
-    partial class LoginForm
+    partial class PlayerNameForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -47,7 +47,7 @@
             // 
             this.startButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.startButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.startButton.BackColor = System.Drawing.SystemColors.Control;
             this.startButton.Enabled = false;
             this.startButton.Location = new System.Drawing.Point(78, 93);
             this.startButton.Name = "startButton";

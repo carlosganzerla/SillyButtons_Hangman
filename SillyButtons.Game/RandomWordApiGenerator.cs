@@ -1,8 +1,8 @@
-﻿using SillyButtons.Interfaces;
+﻿using SillyButtons.Abstractions;
 using System;
 using System.Net.Http;
 
-namespace SillyButtons.Game
+namespace SillyButtons.Hangman
 {
     public class RandomWordApiGenerator : IWordGenerator
     {

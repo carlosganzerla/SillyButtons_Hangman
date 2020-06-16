@@ -1,5 +1,5 @@
-﻿using SillyButtons.Game;
-using SillyButtons.Interfaces;
+﻿using SillyButtons.Abstractions;
+using SillyButtons.Hangman;
 using System;
 
 namespace SillyButtons.Presenters

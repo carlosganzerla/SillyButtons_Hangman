@@ -99,3 +99,4 @@ Scenario: Game restart after victory
 	And I restart the game
 	Then the game is restarted
 
+

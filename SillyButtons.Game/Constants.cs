@@ -1,4 +1,4 @@
-﻿namespace SillyButtons
+﻿namespace SillyButtons.Hangman
 {
     public static class Constants
     {
@@ -8,6 +8,7 @@
         public const string GameLostMessage = "You lost :(";
         public const string GameWonMessage = "You won, congratulations! :)";
         public const string RandomWordApiAddress = "https://random-word-api.herokuapp.com/word?number=1";
+        public const string GameRecordsRelativePath = "GameRecords";
 
     }
 

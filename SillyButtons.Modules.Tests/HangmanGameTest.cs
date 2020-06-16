@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
-using SillyButtons.Game;
+using SillyButtons.Abstractions;
+using SillyButtons.Hangman;
 
 namespace SillyButtons.Modules.Tests
 {

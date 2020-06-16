@@ -1,4 +1,4 @@
-﻿namespace SillyButtons.Interfaces
+﻿namespace SillyButtons.Abstractions
 {
     public interface IWordGenerator
     {

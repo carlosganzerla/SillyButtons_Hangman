@@ -1,11 +1,11 @@
-﻿using SillyButtons.Interfaces;
+﻿using SillyButtons.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace SillyButtons.Views
 {
-    public partial class LoginForm : Form, ILoginView
+    public partial class PlayerNameForm : Form, ILoginView
     {
         public string UserName
         {
@@ -14,7 +14,7 @@ namespace SillyButtons.Views
                 return userNameList.Text;
             }
         }
-        public LoginForm()
+        public PlayerNameForm()
         {
             InitializeComponent();
             CenterToScreen();

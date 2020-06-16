@@ -1,15 +1,15 @@
-﻿using SillyButtons.Interfaces;
+﻿using SillyButtons.Abstractions;
 using System;
 
 namespace SillyButtons.Presenters
 {
-    public class LoginPresenter
+    public class PlayerNamePresenter
     {
         private readonly ILoginView view;
         private readonly IPlayerStore playerStore;
         private readonly IViewLoader loader;
 
-        public LoginPresenter(ILoginView view, IPlayerStore playerStore, IViewLoader loader)
+        public PlayerNamePresenter(ILoginView view, IPlayerStore playerStore, IViewLoader loader)
         {
             this.view = view;
             this.playerStore = playerStore;

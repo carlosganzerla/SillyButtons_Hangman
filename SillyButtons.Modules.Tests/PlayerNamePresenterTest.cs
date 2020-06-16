@@ -1,13 +1,13 @@
 ﻿using Moq;
 using NUnit.Framework;
-using SillyButtons.Interfaces;
+using SillyButtons.Abstractions;
 using SillyButtons.Presenters;
 
 namespace SillyButtons.Modules.Tests
 {
-    public class LoginPresenterTest
+    public class PlayerNamePresenterTest
     {
-        private LoginPresenter presenter;
+        private PlayerNamePresenter presenter;
         private Mock<IViewLoader> loaderMock;
         private Mock<ILoginView> viewMock;
         private Mock<IPlayerStore> storeMock;
@@ -20,7 +20,7 @@ namespace SillyButtons.Modules.Tests
             viewMock = new Mock<ILoginView>();
             storeMock = new Mock<IPlayerStore>();
             storeMock.Setup(m => m.GetPlayerList()).Returns(players);
-            presenter = new LoginPresenter(viewMock.Object, storeMock.Object, loaderMock.Object);
+            presenter = new PlayerNamePresenter(viewMock.Object, storeMock.Object, loaderMock.Object);
         }
 
         [Test]

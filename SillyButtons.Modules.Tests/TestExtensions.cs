@@ -1,14 +1,24 @@
-﻿using SillyButtons.Game;
+﻿using SillyButtons.Abstractions;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Runtime.InteropServices;
 
 namespace SillyButtons.Modules.Tests
 {
     public static class TestExtensions
     {
-        public static void MakeGuess(this HangmanGame game, string guess)
+        public static void CleanUpDirectory(string directoryPath)
+        {
+            if (Directory.Exists(directoryPath))
+            {
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                Directory.Delete(directoryPath, true);
+            }
+        }
+        public static void MakeGuess(this IHangmanGame game, string guess)
         {
             for (int i = 0; i < guess.Length; i++)
             {

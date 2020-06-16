@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using SillyButtons.Hangman;
 using SillyButtons.Properties;
 using SillyButtons.Views;
 using System.Drawing;

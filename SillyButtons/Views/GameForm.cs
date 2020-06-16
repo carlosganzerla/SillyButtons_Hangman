@@ -1,4 +1,5 @@
-﻿using SillyButtons.Interfaces;
+﻿using SillyButtons.Abstractions;
+using SillyButtons.Hangman;
 using System;
 using System.Linq;
 using System.Windows.Forms;

@@ -1,6 +1,6 @@
 ﻿using Moq;
 using NUnit.Framework;
-using SillyButtons.Interfaces;
+using SillyButtons.Abstractions;
 using SillyButtons.Views;
 using System;
 using System.Runtime.InteropServices;

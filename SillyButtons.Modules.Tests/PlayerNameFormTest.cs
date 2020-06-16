@@ -3,14 +3,14 @@ using SillyButtons.Views;
 
 namespace SillyButtons.Modules.Tests
 {
-    public class LoginFormTest
+    public class PlayerNameFormTest
     {
-        public LoginForm form;
+        public PlayerNameForm form;
 
         [SetUp]
         public void Setup()
         {
-            form = new LoginForm();
+            form = new PlayerNameForm();
             form.Show();
             form.Visible = true;
         }

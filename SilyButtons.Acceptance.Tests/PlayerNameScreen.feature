@@ -1,4 +1,4 @@
-﻿Feature: LoginScreen
+﻿Feature: Player Name Screen
 	If any name is entered the game should be able to start
 	If a given name has never played this name should not be on the list
 	If a given name has already played this name should be on the list

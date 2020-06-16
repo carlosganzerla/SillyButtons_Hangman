@@ -1,6 +1,4 @@
-﻿using SillyButtons.Game;
-
-namespace SillyButtons.Interfaces
+﻿namespace SillyButtons.Abstractions
 {
     public interface IHangmanGame
     {

@@ -20,22 +20,22 @@ namespace SilyButtons.Acceptance.Tests
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.1.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("LoginScreen")]
-    public partial class LoginScreenFeature
+    [NUnit.Framework.DescriptionAttribute("Player Name Screen")]
+    public partial class PlayerNameScreenFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private string[] _featureTags = ((string[])(null));
         
-#line 1 "LoginScreen.feature"
+#line 1 "PlayerNameScreen.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "LoginScreen", @"	If any name is entered the game should be able to start
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Player Name Screen", @"	If any name is entered the game should be able to start
 	If a given name has never played this name should not be on the list
 	If a given name has already played this name should be on the list
 	If an existing name from the list is selected the game should be able to start

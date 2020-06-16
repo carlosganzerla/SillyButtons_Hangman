@@ -1,7 +1,7 @@
-﻿using SillyButtons.Interfaces;
+﻿using SillyButtons.Abstractions;
 using System.Text;
 
-namespace SillyButtons.Game
+namespace SillyButtons.Hangman
 {
     public class HangmanGame : IHangmanGame
     {

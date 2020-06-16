@@ -1,6 +1,6 @@
-using SillyButtons.Game;
+using SillyButtons.Hangman;
+using SillyButtons.Hangman.Stores;
 using SillyButtons.Presenters;
-using SillyButtons.Stores;
 using SillyButtons.Views;
 using System;
 using System.Windows.Forms;
@@ -18,10 +18,10 @@ namespace SillyButtons
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            var loginView = new LoginForm();
+            var loginView = new PlayerNameForm();
             var store = new FilePlayerStore("players.store");
             var loader = new ViewLoader(new HangmanGame(), new RandomWordApiGenerator(Constants.RandomWordApiAddress));
-            var loginPresenter = new LoginPresenter(loginView, store, loader);
+            var loginPresenter = new PlayerNamePresenter(loginView, store, loader);
             Application.Run(loginView);
         }
     }
