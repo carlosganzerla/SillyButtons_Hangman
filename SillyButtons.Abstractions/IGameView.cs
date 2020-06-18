@@ -6,6 +6,7 @@ namespace SillyButtons.Abstractions
     {
         event EventHandler StartGame;
         event EventHandler<char> GuessMade;
+        event EventHandler Closed;
         void BlockButton(char letter);
         void SetScoreWord(string word);
         void ShowHangman(int remainingGuesses);

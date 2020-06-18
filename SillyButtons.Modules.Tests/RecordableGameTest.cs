@@ -123,5 +123,30 @@ namespace SillyButtons.Modules.Tests
             playerContext.Verify(m => m.SaveGameRecord(currentRecord), Times.Once());
             playerContext.VerifyNoOtherCalls();
         }
+
+        [Test]
+        public void TestConcedingGame()
+        {
+            actualGame.Setup(m => m.Concede()).Callback(() =>
+            {
+                actualGame.Setup(m => m.Status).Returns(GameStatus.Lost);
+            });
+            game.Concede();
+            actualGame.Verify(m => m.Concede(), Times.Once());
+            Assert.AreEqual(GameStatus.Lost, game.CurrentRecord.GameResult);
+            playerContext.Verify(m => m.SaveGameRecord(game.CurrentRecord), Times.Once());
+            playerContext.VerifyNoOtherCalls();
+        }
+
+        [Test]
+        public void TestConcedingGameAfterGameIsWon()
+        {
+            actualGame.Setup(m => m.Status).Returns(GameStatus.Won);
+            game.MakeGuess('A');
+            game.Concede();
+            actualGame.Verify(m => m.Concede(), Times.Once());
+            playerContext.Verify(m => m.SaveGameRecord(game.CurrentRecord), Times.Once());
+            playerContext.VerifyNoOtherCalls();
+        }
     }
 }

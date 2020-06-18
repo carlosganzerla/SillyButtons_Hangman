@@ -31,7 +31,7 @@ Scenario: Record game quit
 	When I guess "ABCD"
 	And I quit the game
 	Then the a game is added to "Quitter" history
-	And the history records 1 wrong guesses
+	And the history records 3 wrong guesses
 	And the hisotry records the "ABCD" guessed characters
 	And the history records "WORD" as the secret word
 	And the history records the result as a loss

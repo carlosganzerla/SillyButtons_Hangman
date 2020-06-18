@@ -84,5 +84,12 @@ namespace SillyButtons.Modules.Tests
             viewMock.Verify(m => m.ShowHangman(2));
             viewMock.Verify(m => m.EnableCharacters(false), Times.Once);
         }
+
+        [Test]
+        public void TestGameViewClosed()
+        {
+            viewMock.Raise(m => m.Closed += null, null, null);
+            gameMock.Verify(m => m.Concede());
+        }
     }
 }

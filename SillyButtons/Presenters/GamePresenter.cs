@@ -17,6 +17,12 @@ namespace SillyButtons.Presenters
             this.generator = generator;
             view.GuessMade += OnGuessMade;
             view.StartGame += OnStartGame;
+            view.Closed += OnGameClosed;
+        }
+
+        private void OnGameClosed(object sender, EventArgs e)
+        {
+            game.Concede();
         }
 
         private void OnStartGame(object sender, EventArgs e)

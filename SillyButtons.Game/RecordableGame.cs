@@ -28,10 +28,10 @@ namespace SillyButtons.Hangman
         public void SetSecretWord(string word)
         {
             actualGame.SetSecretWord(word);
-            CreateGameRecord(word);
-            UpdateGameRecord();
+            CreateRecord(word);
+            UpdateRecord();
         }
-        private void CreateGameRecord(string word)
+        private void CreateRecord(string word)
         {
             CurrentRecord = new GameRecord
             {
@@ -40,8 +40,7 @@ namespace SillyButtons.Hangman
             };
             currentRecordSaved = false;
         }
-
-        private void UpdateGameRecord()
+        private void UpdateRecord()
         {
             CurrentRecord.GuessedCharacters = actualGame.GuessedCharacters;
             CurrentRecord.GameResult = actualGame.Status;
@@ -51,17 +50,17 @@ namespace SillyButtons.Hangman
         public void MakeGuess(char guess)
         {
             actualGame.MakeGuess(guess);
-            UpdateGameRecord();
-            if (CanSaveRecord())
-            {
-                SaveGameRecord(); 
-            }
+            UpdateRecord();
+            SaveRecordIfNeeded();
         }
 
-        private void SaveGameRecord()
+        private void SaveRecordIfNeeded()
         {
-            context.SaveGameRecord(CurrentRecord);
-            currentRecordSaved = true;
+            if (CanSaveRecord())
+            {
+                context.SaveGameRecord(CurrentRecord);
+                currentRecordSaved = true;
+            }
         }
 
         private bool CanSaveRecord()
@@ -69,5 +68,11 @@ namespace SillyButtons.Hangman
             return actualGame.Status != GameStatus.Playing && !currentRecordSaved;
         }
 
+        public void Concede()
+        {
+            actualGame.Concede();
+            UpdateRecord();
+            SaveRecordIfNeeded();
+        }
     }
 }

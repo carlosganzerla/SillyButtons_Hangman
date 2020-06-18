@@ -1,5 +1,4 @@
 using SillyButtons.Hangman;
-using SillyButtons.Hangman.Stores;
 using SillyButtons.Presenters;
 using SillyButtons.Views;
 using System;
@@ -19,9 +18,11 @@ namespace SillyButtons
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             var loginView = new PlayerNameForm();
-            var store = new FilePlayerStore("players.store");
-            var loader = new ViewLoader(new HangmanGame(), new RandomWordApiGenerator(Constants.RandomWordApiAddress));
-            var loginPresenter = new PlayerNamePresenter(loginView, store, loader);
+            var context = new PlayerContext();
+            var actualGame = new HangmanGame();
+            var recordableGame = new RecordableGame(actualGame, context);
+            var loader = new ViewLoader(recordableGame, new RandomWordApiGenerator(Constants.RandomWordApiAddress));
+            var loginPresenter = new PlayerNamePresenter(loginView, context, loader);
             Application.Run(loginView);
         }
     }

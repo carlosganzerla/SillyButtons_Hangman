@@ -1,12 +1,12 @@
-﻿using SillyButtons.Hangman;
-using TechTalk.SpecFlow;
-using SillyButtons.Modules.Tests;
-using NUnit.Framework;
-using System.IO;
-using System;
+﻿using NUnit.Framework;
 using SillyButtons.Abstractions;
-using System.Text.Json;
+using SillyButtons.Hangman;
+using SillyButtons.Modules.Tests;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
+using TechTalk.SpecFlow;
 
 namespace SilyButtons.Acceptance.Tests
 {
@@ -49,7 +49,7 @@ namespace SilyButtons.Acceptance.Tests
         [When(@"I quit the game")]
         public void WhenIQuitTheGame()
         {
-            ScenarioContext.Current.Pending();
+            recordableGame.Concede();
         }
 
         [Then(@"the a game is added to ""(.*)"" history")]

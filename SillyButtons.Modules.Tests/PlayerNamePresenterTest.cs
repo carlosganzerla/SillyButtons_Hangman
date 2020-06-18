@@ -10,7 +10,7 @@ namespace SillyButtons.Modules.Tests
         private PlayerNamePresenter presenter;
         private Mock<IViewLoader> loaderMock;
         private Mock<ILoginView> viewMock;
-        private Mock<IPlayerStore> storeMock;
+        private Mock<IPlayerContext> contextMock;
         private static readonly string[] players = new[] { "first", "second", "third" };
 
         [SetUp]
@@ -18,9 +18,9 @@ namespace SillyButtons.Modules.Tests
         {
             loaderMock = new Mock<IViewLoader>();
             viewMock = new Mock<ILoginView>();
-            storeMock = new Mock<IPlayerStore>();
-            storeMock.Setup(m => m.GetPlayerList()).Returns(players);
-            presenter = new PlayerNamePresenter(viewMock.Object, storeMock.Object, loaderMock.Object);
+            contextMock = new Mock<IPlayerContext>();
+            contextMock.Setup(m => m.GetPlayerList()).Returns(players);
+            presenter = new PlayerNamePresenter(viewMock.Object, contextMock.Object, loaderMock.Object);
         }
 
         [Test]
@@ -28,7 +28,7 @@ namespace SillyButtons.Modules.Tests
         {
             viewMock.Setup(m => m.UserName).Returns("name");
             viewMock.Raise(m => m.StartGame += null, null, null);
-            storeMock.Verify(m => m.StorePlayer("name"), Times.Once());
+            contextMock.Verify(m => m.SetPlayerName("name"), Times.Once());
             loaderMock.Verify(m => m.LoadGameView(), Times.Once());
             loaderMock.VerifyNoOtherCalls();
         }

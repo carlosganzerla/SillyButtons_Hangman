@@ -6,13 +6,13 @@ namespace SillyButtons.Presenters
     public class PlayerNamePresenter
     {
         private readonly ILoginView view;
-        private readonly IPlayerStore playerStore;
+        private readonly IPlayerContext context;
         private readonly IViewLoader loader;
 
-        public PlayerNamePresenter(ILoginView view, IPlayerStore playerStore, IViewLoader loader)
+        public PlayerNamePresenter(ILoginView view, IPlayerContext context, IViewLoader loader)
         {
             this.view = view;
-            this.playerStore = playerStore;
+            this.context = context;
             this.loader = loader;
             RefreshNames();
             view.StartGame += OnStartGame;
@@ -20,12 +20,12 @@ namespace SillyButtons.Presenters
 
         public void RefreshNames()
         {
-            view.SetNames(playerStore.GetPlayerList());
+            view.SetNames(context.GetPlayerList());
         }
 
         private void OnStartGame(object sender, EventArgs e)
         {
-            playerStore.StorePlayer(view.UserName);
+            context.SetPlayerName(view.UserName);
             loader.LoadGameView();
         }
     }

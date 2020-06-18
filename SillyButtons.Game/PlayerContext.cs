@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 
 namespace SillyButtons.Hangman
@@ -36,7 +37,6 @@ namespace SillyButtons.Hangman
 
         private List<GameRecord> ReadRecordFile()
         {
-            CreateFileIfNotExists();
             string recordFileText = File.ReadAllText(RecordFilePath);
             return JsonSerializer.Deserialize<List<GameRecord>>(recordFileText);
         }
@@ -58,6 +58,20 @@ namespace SillyButtons.Hangman
         public void SetPlayerName(string playerName)
         {
             this.playerName = playerName;
+            CreateFileIfNotExists();
+        }
+
+        public IEnumerable<string> GetPlayerList()
+        {
+            if (Directory.Exists(recordFilesPath))
+            {
+                return Directory.GetFiles(recordFilesPath, "*.hgr")
+                    .Select(x => Path.GetFileNameWithoutExtension(x));
+            }
+            else
+            {
+                return Array.Empty<string>();
+            }
         }
     }
 }

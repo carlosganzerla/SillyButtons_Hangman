@@ -229,7 +229,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the a game is added to \"Quitter\" history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 34
- testRunner.And("the history records 1 wrong guesses", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the history records 3 wrong guesses", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 35
  testRunner.And("the hisotry records the \"ABCD\" guessed characters", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");

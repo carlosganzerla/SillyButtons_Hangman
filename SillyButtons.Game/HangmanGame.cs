@@ -62,7 +62,12 @@ namespace SillyButtons.Hangman
 
         private bool IsValidGuess(char guess)
         {
-            return Status == GameStatus.Playing && !GuessedCharacters.Contains(guess);
+            return IsGameBeingPlayed() && !GuessedCharacters.Contains(guess);
+        }
+
+        private bool IsGameBeingPlayed()
+        {
+            return Status == GameStatus.Playing;
         }
 
         private void UpdateScore(char guess)
@@ -102,6 +107,14 @@ namespace SillyButtons.Hangman
         private void CheckDefeat()
         {
             if (RemainingGuesses == 0)
+            {
+                Status = GameStatus.Lost;
+            }
+        }
+
+        public void Concede()
+        {
+            if (IsGameBeingPlayed())
             {
                 Status = GameStatus.Lost;
             }

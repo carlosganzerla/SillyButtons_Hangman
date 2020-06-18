@@ -5,6 +5,7 @@ using SillyButtons.Hangman;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 
 namespace SillyButtons.Modules.Tests
@@ -24,6 +25,13 @@ namespace SillyButtons.Modules.Tests
         public void TestSavingWithoutPlayerName()
         {
             Assert.Throws<InvalidOperationException>(() => context.SaveGameRecord(It.IsAny<GameRecord>()));
+        }
+
+        [Test]
+        public void TestSettingPlayerNameAndSavingInitialRecord()
+        {
+            context.SetPlayerName("Name");
+            FileAssert.Exists(GetPlayerRecordFileName("Name"));
         }
 
         [Test]
@@ -82,6 +90,27 @@ namespace SillyButtons.Modules.Tests
         private List<GameRecord> GetPlayerRecords(string playerName)
         {
             return JsonSerializer.Deserialize<List<GameRecord>>(File.ReadAllText(GetPlayerRecordFileName(playerName)));
+        }
+
+        [Test]
+        public void TestGetPlayerNames_DirectoryExists()
+        {
+            Directory.CreateDirectory(recordsFilePath);
+            File.WriteAllText(GetPlayerRecordFileName("Bar"), "bsdasdsd"); // Alphabetic order cuz the windows FS does this way
+            File.WriteAllText(GetPlayerRecordFileName("Foo"), "asdsaasd");
+            File.WriteAllText(GetPlayerRecordFileName("Joe"), "dsasddas");
+            var players = context.GetPlayerList();
+            Assert.AreEqual(3, players.Count());
+            Assert.AreEqual("Bar", players.ElementAt(0));
+            Assert.AreEqual("Foo", players.ElementAt(1));
+            Assert.AreEqual("Joe", players.ElementAt(2));
+        }
+
+        [Test]
+        public void TestGetPlayerNames_DirectoryDoesNotExist()
+        {
+            var players = context.GetPlayerList();
+            Assert.AreEqual(0, players.Count());
         }
 
         [TearDown]

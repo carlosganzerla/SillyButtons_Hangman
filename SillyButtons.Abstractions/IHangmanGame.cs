@@ -8,5 +8,6 @@
         int RemainingGuesses { get; }
         void MakeGuess(char guess);
         void SetSecretWord(string word);
+        void Concede();
     }
 }

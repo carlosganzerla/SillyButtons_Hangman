@@ -23,7 +23,6 @@ namespace SillyButtons.Modules.Tests
             Assert.AreEqual("W", game.GuessedCharacters);
             Assert.AreEqual("W   ", game.DisplayWord);
             Assert.AreEqual(GameStatus.Playing, game.Status);
-
         }
 
         [Test]
@@ -106,6 +105,28 @@ namespace SillyButtons.Modules.Tests
             Assert.AreEqual("ABJOHNCDY", game.GuessedCharacters);
             Assert.AreEqual("JOHNNY", game.DisplayWord);
             Assert.AreEqual(GameStatus.Won, game.Status);
+        }
+
+        [Test]
+        public void TestConcedingGame()
+        {
+            game.SetSecretWord("WORD");
+            game.MakeGuess("ABD");
+            game.Concede();
+            Assert.AreEqual(GameStatus.Lost, game.Status);
+            Assert.AreEqual("ABD", game.GuessedCharacters);
+            Assert.AreEqual("   D", game.DisplayWord);
+        }
+
+        [Test]
+        public void TestConcedingGameAfterWin()
+        {
+            game.SetSecretWord("WORD");
+            game.MakeGuess("WORD");
+            game.Concede();
+            Assert.AreEqual(GameStatus.Won, game.Status);
+            Assert.AreEqual("WORD", game.GuessedCharacters);
+            Assert.AreEqual("WORD", game.DisplayWord);
         }
 
 

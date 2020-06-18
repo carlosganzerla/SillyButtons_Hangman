@@ -1,7 +1,7 @@
 ﻿using Moq;
 using NUnit.Framework;
 using SillyButtons.Abstractions;
-using SillyButtons.Hangman.Stores;
+using SillyButtons.Hangman;
 using SillyButtons.Presenters;
 using SillyButtons.Views;
 using System;
@@ -16,25 +16,18 @@ namespace SilyButtons.Acceptance.Tests
     public class PlayerNameSteps
     {
         private readonly PlayerNameForm view;
-        private readonly FilePlayerStore store;
+        private readonly PlayerContext context;
         private PlayerNamePresenter presenter;
         private readonly Mock<IViewLoader> loader;
-
         private IList listItems;
-        private static readonly string filePath = Path.Combine(Directory.GetCurrentDirectory(), "players.store");
-
-        private void CreateStoreFile(params string[] names)
-        {
-            File.WriteAllText(filePath, string.Join("\r\n", names) + "\r\n");
-        }
-
+        private static readonly string recordsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Constants.GameRecordsRelativePath);
 
         public PlayerNameSteps()
         {
             loader = new Mock<IViewLoader>();
             view = new PlayerNameForm();
-            store = new FilePlayerStore(filePath);
-            presenter = new PlayerNamePresenter(view, store, loader.Object);
+            context = new PlayerContext();
+            presenter = new PlayerNamePresenter(view, context, loader.Object);
         }
 
         [Given(@"I am on the login screen")]
@@ -46,14 +39,23 @@ namespace SilyButtons.Acceptance.Tests
         [Given(@"I ""(.*)"" have never played the game")]
         public void GivenIHaveNeverPlayedTheGame(string p0)
         {
-            CreateStoreFile("another name", "joey", "kramk");
+            AddPlayers("another name", "joey", "kramk");
             presenter.RefreshNames();
+        }
+
+        private void AddPlayers(params string[] players)
+        {
+            var orderedPlayersCaseInsensitive = players.OrderBy(x => x.ToUpper());
+            foreach (var player in orderedPlayersCaseInsensitive)
+            {
+                context.SetPlayerName(player);
+            }
         }
 
         [Given(@"I ""(.*)"" have already played the game")]
         public void GivenIHaveAlreadyPlayedTheGame(string p0)
         {
-            CreateStoreFile("another name", "joey", p0, "kramk");
+            AddPlayers("another name", "joey", p0, "kramk");
             presenter.RefreshNames();
         }
 
@@ -118,7 +120,7 @@ namespace SilyButtons.Acceptance.Tests
         public void ThenShouldBeOnTheList(string p0)
         {
             Assert.IsTrue(listItems.Count > 0);
-            Assert.AreEqual(p0, listItems[2]);
+            Assert.IsTrue(listItems.Contains(p0));
         }
 
         [Then(@"start button is disabled")]
@@ -137,7 +139,7 @@ namespace SilyButtons.Acceptance.Tests
         [Then(@"""(.*)"" is stored")]
         public void ThenIsStored(string p0)
         {
-            var players = store.GetPlayerList();
+            var players = context.GetPlayerList();
             Assert.AreEqual(1, players.Count());
             Assert.AreEqual(p0, players.ElementAt(0));
         }
@@ -148,9 +150,9 @@ namespace SilyButtons.Acceptance.Tests
         {
             GC.WaitForPendingFinalizers();
             GC.Collect();
-            if (File.Exists(filePath))
+            if (Directory.Exists(recordsFilePath))
             {
-                File.Delete(filePath);
+                Directory.Delete(recordsFilePath, true);
             }
         }
     }
