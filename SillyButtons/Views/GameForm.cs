@@ -8,6 +8,8 @@ namespace SillyButtons.Views
 {
     public partial class GameForm : Form, IGameView
     {
+        public event EventHandler<char> GuessMade;
+        public event EventHandler StartGame;
         public GameForm()
         {
             InitializeComponent();
@@ -17,14 +19,13 @@ namespace SillyButtons.Views
 
         private void AddAlphabetButtons()
         {
-            for (int i = 0; i < Constants.Alphabet.Length; i++)
+            for (int i = 0; i < AppConstants.Alphabet.Length; i++)
             {
-                var button = GuiHelper.CreateAlphabetButton(Constants.Alphabet[i]);
+                var button = GuiHelper.CreateAlphabetButton(AppConstants.Alphabet[i]);
                 charButtonsPanel.Controls.Add(button);
                 button.Click += OnGuessMade;
             }
         }
-
         private void OnGuessMade(object sender, EventArgs e)
         {
             if (sender is Button button && button.Tag is char letter)
@@ -32,11 +33,6 @@ namespace SillyButtons.Views
                 GuessMade?.Invoke(this, letter);
             }
         }
-
-
-        public event EventHandler<char> GuessMade;
-        public event EventHandler StartGame;
-
         public void SetScoreWord(string word)
         {
             scoreCharsPanel.Controls.Clear();

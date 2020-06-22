@@ -41,9 +41,9 @@
             this.charButtonsPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.charButtonsPanel.Location = new System.Drawing.Point(230, 94);
+            this.charButtonsPanel.Location = new System.Drawing.Point(230, 169);
             this.charButtonsPanel.Name = "charButtonsPanel";
-            this.charButtonsPanel.Size = new System.Drawing.Size(494, 316);
+            this.charButtonsPanel.Size = new System.Drawing.Size(494, 241);
             this.charButtonsPanel.TabIndex = 0;
             // 
             // scoreCharsPanel
@@ -55,7 +55,7 @@
             this.scoreCharsPanel.Margin = new System.Windows.Forms.Padding(0);
             this.scoreCharsPanel.Name = "scoreCharsPanel";
             this.scoreCharsPanel.Padding = new System.Windows.Forms.Padding(50, 20, 50, 20);
-            this.scoreCharsPanel.Size = new System.Drawing.Size(494, 86);
+            this.scoreCharsPanel.Size = new System.Drawing.Size(494, 161);
             this.scoreCharsPanel.TabIndex = 0;
             // 
             // hangmanImage

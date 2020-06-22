@@ -11,7 +11,7 @@ namespace SillyButtons.Modules.Tests
         [SetUp]
         public void Setup()
         {
-            generator = new RandomWordApiGenerator(Constants.RandomWordApiAddress);
+            generator = new RandomWordApiGenerator(AppConstants.RandomWordApiAddress);
         }
 
         [Test]

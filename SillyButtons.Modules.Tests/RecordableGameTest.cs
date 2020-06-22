@@ -20,7 +20,7 @@ namespace SillyButtons.Modules.Tests
             game = new RecordableGame(actualGame.Object, playerContext.Object);
             actualGame.Setup(m => m.Status).Returns(GameStatus.Playing);
             actualGame.Setup(m => m.GuessedCharacters).Returns("");
-            actualGame.Setup(m => m.RemainingGuesses).Returns(Constants.MaximumGuesses);
+            actualGame.Setup(m => m.RemainingGuesses).Returns(AppConstants.MaximumGuesses);
             game.SetSecretWord("WORD");
         }
 
@@ -62,8 +62,8 @@ namespace SillyButtons.Modules.Tests
             game.MakeGuess(guessedCharacters);
             Assert.AreEqual(game.CurrentRecord.GameResult, GameStatus.Lost);
             Assert.AreEqual(game.CurrentRecord.GuessedCharacters, "ABC");
-            Assert.AreEqual(Constants.MaximumGuesses, game.CurrentRecord.WrongGuesses);
-            playerContext.Verify(m => m.SaveGameRecord(game.CurrentRecord), Times.Once());
+            Assert.AreEqual(AppConstants.MaximumGuesses, game.CurrentRecord.WrongGuesses);
+            playerContext.Verify(m => m.SaveCurrentPlayerRecord(game.CurrentRecord), Times.Once());
             playerContext.VerifyNoOtherCalls();
         }
 
@@ -78,8 +78,8 @@ namespace SillyButtons.Modules.Tests
             game.MakeGuess(guessedCharacters);
             Assert.AreEqual(game.CurrentRecord.GameResult, GameStatus.Playing);
             Assert.AreEqual(game.CurrentRecord.GuessedCharacters, "ABC");
-            Assert.AreEqual(Constants.MaximumGuesses - remainingGuesses, game.CurrentRecord.WrongGuesses);
-            playerContext.Verify(m => m.SaveGameRecord(It.IsAny<GameRecord>()), Times.Never());
+            Assert.AreEqual(AppConstants.MaximumGuesses - remainingGuesses, game.CurrentRecord.WrongGuesses);
+            playerContext.Verify(m => m.SaveCurrentPlayerRecord(It.IsAny<GameRecord>()), Times.Never());
         }
 
         [Test]
@@ -93,8 +93,8 @@ namespace SillyButtons.Modules.Tests
             game.MakeGuess(guessedCharacters);
             Assert.AreEqual(game.CurrentRecord.GameResult, GameStatus.Won);
             Assert.AreEqual(game.CurrentRecord.GuessedCharacters, "ABC");
-            Assert.AreEqual(Constants.MaximumGuesses - remainingGuesses, game.CurrentRecord.WrongGuesses);
-            playerContext.Verify(m => m.SaveGameRecord(game.CurrentRecord), Times.Once());
+            Assert.AreEqual(AppConstants.MaximumGuesses - remainingGuesses, game.CurrentRecord.WrongGuesses);
+            playerContext.Verify(m => m.SaveCurrentPlayerRecord(game.CurrentRecord), Times.Once());
             playerContext.VerifyNoOtherCalls();
         }
 
@@ -104,7 +104,7 @@ namespace SillyButtons.Modules.Tests
             actualGame.Setup(m => m.Status).Returns(GameStatus.Lost);
             game.MakeGuess('A');
             game.MakeGuess('B');
-            playerContext.Verify(m => m.SaveGameRecord(game.CurrentRecord), Times.Once());
+            playerContext.Verify(m => m.SaveCurrentPlayerRecord(game.CurrentRecord), Times.Once());
             playerContext.VerifyNoOtherCalls();
         }
 
@@ -119,8 +119,8 @@ namespace SillyButtons.Modules.Tests
             var currentRecord = game.CurrentRecord;
             actualGame.Setup(m => m.Status).Returns(GameStatus.Lost);
             game.MakeGuess('A');
-            playerContext.Verify(m => m.SaveGameRecord(previousRecord), Times.Once());
-            playerContext.Verify(m => m.SaveGameRecord(currentRecord), Times.Once());
+            playerContext.Verify(m => m.SaveCurrentPlayerRecord(previousRecord), Times.Once());
+            playerContext.Verify(m => m.SaveCurrentPlayerRecord(currentRecord), Times.Once());
             playerContext.VerifyNoOtherCalls();
         }
 
@@ -134,7 +134,7 @@ namespace SillyButtons.Modules.Tests
             game.Concede();
             actualGame.Verify(m => m.Concede(), Times.Once());
             Assert.AreEqual(GameStatus.Lost, game.CurrentRecord.GameResult);
-            playerContext.Verify(m => m.SaveGameRecord(game.CurrentRecord), Times.Once());
+            playerContext.Verify(m => m.SaveCurrentPlayerRecord(game.CurrentRecord), Times.Once());
             playerContext.VerifyNoOtherCalls();
         }
 
@@ -145,7 +145,7 @@ namespace SillyButtons.Modules.Tests
             game.MakeGuess('A');
             game.Concede();
             actualGame.Verify(m => m.Concede(), Times.Once());
-            playerContext.Verify(m => m.SaveGameRecord(game.CurrentRecord), Times.Once());
+            playerContext.Verify(m => m.SaveCurrentPlayerRecord(game.CurrentRecord), Times.Once());
             playerContext.VerifyNoOtherCalls();
         }
     }

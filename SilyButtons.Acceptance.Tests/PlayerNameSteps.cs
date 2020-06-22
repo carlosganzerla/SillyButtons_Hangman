@@ -20,7 +20,7 @@ namespace SilyButtons.Acceptance.Tests
         private PlayerNamePresenter presenter;
         private readonly Mock<IViewLoader> loader;
         private IList listItems;
-        private static readonly string recordsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Constants.GameRecordsRelativePath);
+        private static readonly string recordsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, AppConstants.GameRecordsRelativePath);
 
         public PlayerNameSteps()
         {
@@ -48,7 +48,7 @@ namespace SilyButtons.Acceptance.Tests
             var orderedPlayersCaseInsensitive = players.OrderBy(x => x.ToUpper());
             foreach (var player in orderedPlayersCaseInsensitive)
             {
-                context.SetPlayerName(player);
+                context.SetCurrentPlayer(player);
             }
         }
 
@@ -100,6 +100,12 @@ namespace SilyButtons.Acceptance.Tests
             view.startButton.PerformClick();
         }
 
+        [When(@"I press view record button")]
+        public void WhenIPressViewRecordButton()
+        {
+            view.viewRecordButton.PerformClick();
+        }
+
         [Then(@"start button is enabled")]
         public void ThenStartButtonIsEnabled()
         {
@@ -139,9 +145,28 @@ namespace SilyButtons.Acceptance.Tests
         [Then(@"""(.*)"" is stored")]
         public void ThenIsStored(string p0)
         {
-            var players = context.GetPlayerList();
-            Assert.AreEqual(1, players.Count());
-            Assert.AreEqual(p0, players.ElementAt(0));
+            var players = context.GetAllPlayers();
+            Assert.IsTrue(players.Contains(p0));
+        }
+
+
+        [Then(@"view record button is disabled")]
+        public void ThenViewRecordButtonIsDisabled()
+        {
+            Assert.IsFalse(view.viewRecordButton.Enabled);
+        }
+
+        [Then(@"view record button is enabled")]
+        public void ThenViewRecordButtonIsEnabled()
+        {
+            Assert.IsTrue(view.viewRecordButton.Enabled);
+        }
+
+        [Then(@"a record window is showm")]
+        public void ThenARecordWindowIsShowm()
+        {
+            loader.Verify(m => m.LoadGameRecordView(), Times.Once());
+            loader.VerifyNoOtherCalls();
         }
 
 

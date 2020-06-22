@@ -18,7 +18,7 @@ namespace SilyButtons.Acceptance.Tests
         private PlayerContext context;
         private GameRecord currentRecord;
         private DateTime gameDate;
-        private static readonly string recordsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Constants.GameRecordsRelativePath);
+        private static readonly string recordsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, AppConstants.GameRecordsRelativePath);
 
         public GameRecorderSteps()
         {
@@ -30,7 +30,7 @@ namespace SilyButtons.Acceptance.Tests
         [Given(@"My names is ""(.*)""")]
         public void GivenMyNamesIs(string p0)
         {
-            context.SetPlayerName(p0);
+            context.SetCurrentPlayer(p0);
 
         }
         [Given(@"the word is ""(.*)""")]

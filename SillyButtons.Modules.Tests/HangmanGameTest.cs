@@ -19,7 +19,7 @@ namespace SillyButtons.Modules.Tests
         {
             game.SetSecretWord("WORD");
             game.MakeGuess('W');
-            Assert.AreEqual(Constants.MaximumGuesses, game.RemainingGuesses);
+            Assert.AreEqual(AppConstants.MaximumGuesses, game.RemainingGuesses);
             Assert.AreEqual("W", game.GuessedCharacters);
             Assert.AreEqual("W   ", game.DisplayWord);
             Assert.AreEqual(GameStatus.Playing, game.Status);
@@ -30,7 +30,7 @@ namespace SillyButtons.Modules.Tests
         {
             game.SetSecretWord("WORD");
             game.MakeGuess('A');
-            Assert.AreEqual(Constants.MaximumGuesses - 1, game.RemainingGuesses);
+            Assert.AreEqual(AppConstants.MaximumGuesses - 1, game.RemainingGuesses);
             Assert.AreEqual("A", game.GuessedCharacters);
             Assert.AreEqual("    ", game.DisplayWord);
             Assert.AreEqual(GameStatus.Playing, game.Status);
@@ -42,7 +42,7 @@ namespace SillyButtons.Modules.Tests
             game.SetSecretWord("WORD");
             game.MakeGuess('A');
             game.MakeGuess('A');
-            Assert.AreEqual(Constants.MaximumGuesses - 1, game.RemainingGuesses);
+            Assert.AreEqual(AppConstants.MaximumGuesses - 1, game.RemainingGuesses);
             Assert.AreEqual("A", game.GuessedCharacters);
             Assert.AreEqual("    ", game.DisplayWord);
             Assert.AreEqual(GameStatus.Playing, game.Status);
@@ -54,7 +54,7 @@ namespace SillyButtons.Modules.Tests
             game.SetSecretWord("WORD");
             game.MakeGuess('R');
             game.MakeGuess('R');
-            Assert.AreEqual(Constants.MaximumGuesses, game.RemainingGuesses);
+            Assert.AreEqual(AppConstants.MaximumGuesses, game.RemainingGuesses);
             Assert.AreEqual("R", game.GuessedCharacters);
             Assert.AreEqual("  R ", game.DisplayWord);
             Assert.AreEqual(GameStatus.Playing, game.Status);
@@ -66,7 +66,7 @@ namespace SillyButtons.Modules.Tests
             game.SetSecretWord("HANGMAN");
             game.MakeGuess('N');
             game.MakeGuess('A');
-            Assert.AreEqual(Constants.MaximumGuesses, game.RemainingGuesses);
+            Assert.AreEqual(AppConstants.MaximumGuesses, game.RemainingGuesses);
             Assert.AreEqual("NA", game.GuessedCharacters);
             Assert.AreEqual(" AN  AN", game.DisplayWord);
             Assert.AreEqual(GameStatus.Playing, game.Status);
@@ -79,7 +79,7 @@ namespace SillyButtons.Modules.Tests
             game.MakeGuess('Z');
             game.SetSecretWord("WORD");
             game.MakeGuess('D');
-            Assert.AreEqual(Constants.MaximumGuesses, game.RemainingGuesses);
+            Assert.AreEqual(AppConstants.MaximumGuesses, game.RemainingGuesses);
             Assert.AreEqual("D", game.GuessedCharacters);
             Assert.AreEqual("   D", game.DisplayWord);
             Assert.AreEqual(GameStatus.Playing, game.Status);

@@ -33,7 +33,7 @@ namespace SillyButtons.Hangman
         private void ResetGameVariables()
         {
             Status = GameStatus.Playing;
-            RemainingGuesses = Constants.MaximumGuesses;
+            RemainingGuesses = AppConstants.MaximumGuesses;
             guessedCharacters.Clear();
         }
 
@@ -56,7 +56,8 @@ namespace SillyButtons.Hangman
         {
             if (IsValidGuess(guess))
             {
-                UpdateScore(guess);
+                guessedCharacters.Append(guess);
+                UpdateGameStats(guess);
             }
         }
 
@@ -70,9 +71,8 @@ namespace SillyButtons.Hangman
             return Status == GameStatus.Playing;
         }
 
-        private void UpdateScore(char guess)
+        private void UpdateGameStats(char guess)
         {
-            guessedCharacters.Append(guess);
             if (!secretWord.Contains(guess))
             {
                 RemainingGuesses--;

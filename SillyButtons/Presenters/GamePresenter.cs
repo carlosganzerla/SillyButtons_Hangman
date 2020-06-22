@@ -49,14 +49,14 @@ namespace SillyButtons.Presenters
             {
                 case GameStatus.Lost:
                     view.EnableCharacters(false);
-                    view.SetStatusMessage(Constants.GameLostMessage);
+                    view.SetStatusMessage(AppStrings.GameLostMessage);
                     break;
                 case GameStatus.Won:
                     view.EnableCharacters(false);
-                    view.SetStatusMessage(Constants.GameWonMessage);
+                    view.SetStatusMessage(AppStrings.GameWonMessage);
                     break;
                 default:
-                    view.SetStatusMessage(string.Format(Constants.GamePlayingMessage, game.GuessedCharacters, game.RemainingGuesses));
+                    view.SetStatusMessage(AppStrings.GamePlayingMessage(game));
                     break;
             }
         }

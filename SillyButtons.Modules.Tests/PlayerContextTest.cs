@@ -3,17 +3,15 @@ using NUnit.Framework;
 using SillyButtons.Abstractions;
 using SillyButtons.Hangman;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.Json;
 
 namespace SillyButtons.Modules.Tests
 {
     public class PlayerContextTest
     {
         private PlayerContext context;
-        private static readonly string recordsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Constants.GameRecordsRelativePath);
+        private static readonly string recordsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, AppConstants.GameRecordsRelativePath);
 
         [SetUp]
         public void Setup()
@@ -22,16 +20,21 @@ namespace SillyButtons.Modules.Tests
         }
 
         [Test]
-        public void TestSavingWithoutPlayerName()
+        public void TestSavingWithoutSettingCurrentPlayer()
         {
-            Assert.Throws<InvalidOperationException>(() => context.SaveGameRecord(It.IsAny<GameRecord>()));
+            Assert.Throws<InvalidOperationException>(() => context.SaveCurrentPlayerRecord(It.IsAny<GameRecord>()));
         }
 
         [Test]
-        public void TestSettingPlayerNameAndSavingInitialRecord()
+        public void TestSettingPlayerAndSavingInitialRecord()
         {
-            context.SetPlayerName("Name");
+            context.SetCurrentPlayer("Name");
             FileAssert.Exists(GetPlayerRecordFileName("Name"));
+        }
+
+        private string GetPlayerRecordFileName(string playerName)
+        {
+            return Path.Combine(recordsFilePath, $"{playerName}.hgr");
         }
 
         [Test]
@@ -46,10 +49,10 @@ namespace SillyButtons.Modules.Tests
                 GuessedCharacters = "ABC",
                 WrongGuesses = 3
             };
-            context.SetPlayerName("Name");
-            context.SaveGameRecord(gameRecord);
+            context.SetCurrentPlayer("Name");
+            context.SaveCurrentPlayerRecord(gameRecord);
             FileAssert.Exists(GetPlayerRecordFileName("Name"));
-            var savedRecords = GetPlayerRecords("Name");
+            var savedRecords = context.GetCurrentPlayerRecords().ToList();
             Assert.AreEqual(1, savedRecords.Count);
             var savedRecord = savedRecords[0];
             AssertRecordsAreEqual(gameRecord, savedRecord);
@@ -58,25 +61,20 @@ namespace SillyButtons.Modules.Tests
         [Test]
         public void TestSaveAndGetMultipleRecords()
         {
-            context.SetPlayerName("Name");
+            context.SetCurrentPlayer("Name");
             var recordZero = new GameRecord() { SecretWord = "A" };
             var recordOne = new GameRecord() { SecretWord = "B" };
             var recordTwo = new GameRecord() { SecretWord = "C" };
-            context.SaveGameRecord(recordZero);
-            context.SaveGameRecord(recordOne);
-            context.SaveGameRecord(recordTwo);
-            var savedRecords = GetPlayerRecords("Name");
+            context.SaveCurrentPlayerRecord(recordZero);
+            context.SaveCurrentPlayerRecord(recordOne);
+            context.SaveCurrentPlayerRecord(recordTwo);
+            var savedRecords = context.GetCurrentPlayerRecords().ToList();
             Assert.AreEqual(3, savedRecords.Count);
             AssertRecordsAreEqual(recordZero, savedRecords[0]);
             AssertRecordsAreEqual(recordOne, savedRecords[1]);
             AssertRecordsAreEqual(recordTwo, savedRecords[2]);
-
         }
 
-        private string GetPlayerRecordFileName(string playerName)
-        {
-            return Path.Combine(recordsFilePath, $"{playerName}.hgr");
-        }
 
         private void AssertRecordsAreEqual(GameRecord expected, GameRecord actual)
         {
@@ -87,10 +85,13 @@ namespace SillyButtons.Modules.Tests
             Assert.AreEqual(expected.WrongGuesses, actual.WrongGuesses);
         }
 
-        private List<GameRecord> GetPlayerRecords(string playerName)
+        [Test]
+        public void TestGetCurrentPlayer()
         {
-            return JsonSerializer.Deserialize<List<GameRecord>>(File.ReadAllText(GetPlayerRecordFileName(playerName)));
+            context.SetCurrentPlayer("Name");
+            Assert.AreEqual("Name", context.CurrentPlayer);
         }
+
 
         [Test]
         public void TestGetPlayerNames_DirectoryExists()
@@ -99,7 +100,7 @@ namespace SillyButtons.Modules.Tests
             File.WriteAllText(GetPlayerRecordFileName("Bar"), "bsdasdsd"); // Alphabetic order cuz the windows FS does this way
             File.WriteAllText(GetPlayerRecordFileName("Foo"), "asdsaasd");
             File.WriteAllText(GetPlayerRecordFileName("Joe"), "dsasddas");
-            var players = context.GetPlayerList();
+            var players = context.GetAllPlayers();
             Assert.AreEqual(3, players.Count());
             Assert.AreEqual("Bar", players.ElementAt(0));
             Assert.AreEqual("Foo", players.ElementAt(1));
@@ -109,9 +110,24 @@ namespace SillyButtons.Modules.Tests
         [Test]
         public void TestGetPlayerNames_DirectoryDoesNotExist()
         {
-            var players = context.GetPlayerList();
+            var players = context.GetAllPlayers();
             Assert.AreEqual(0, players.Count());
         }
+
+        [Test]
+        public void TestGetRecordsWithoutSettingCurrentPlayer()
+        {
+            Assert.Throws<InvalidOperationException>(() => context.GetCurrentPlayerRecords());
+        }
+
+        [Test]
+        public void TestGetRecordsForAbsolutelyNewPlayer()
+        {
+            context.SetCurrentPlayer("Player");
+            var records = context.GetCurrentPlayerRecords();
+            Assert.AreEqual(0, records.Count());
+        }
+
 
         [TearDown]
         public void Teardown()

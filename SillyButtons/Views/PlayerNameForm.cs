@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace SillyButtons.Views
 {
-    public partial class PlayerNameForm : Form, ILoginView
+    public partial class PlayerNameForm : Form, IPlayerNameView
     {
         public string UserName
         {
@@ -13,11 +13,6 @@ namespace SillyButtons.Views
             {
                 return userNameList.Text;
             }
-        }
-        public PlayerNameForm()
-        {
-            InitializeComponent();
-            CenterToScreen();
         }
 
         public event EventHandler StartGame
@@ -32,9 +27,28 @@ namespace SillyButtons.Views
             }
         }
 
+        public PlayerNameForm()
+        {
+            InitializeComponent();
+            CenterToScreen();
+        }
+
+        public event EventHandler ViewRecord
+        {
+            add
+            {
+                viewRecordButton.Click += value;
+            }
+            remove
+            {
+                viewRecordButton.Click -= value;
+            }
+        }
+
         private void userNameList_TextChanged(object sender, EventArgs e)
         {
             startButton.Enabled = !string.IsNullOrEmpty(userNameList.Text);
+            viewRecordButton.Enabled = userNameList.Items.Contains(userNameList.Text);
         }
 
         public void SetNames(IEnumerable<string> names)

@@ -21,7 +21,7 @@ namespace SillyButtons
             var context = new PlayerContext();
             var actualGame = new HangmanGame();
             var recordableGame = new RecordableGame(actualGame, context);
-            var loader = new ViewLoader(recordableGame, new RandomWordApiGenerator(Constants.RandomWordApiAddress));
+            var loader = new ViewLoader(recordableGame, new RandomWordApiGenerator(AppConstants.RandomWordApiAddress), context);
             var loginPresenter = new PlayerNamePresenter(loginView, context, loader);
             Application.Run(loginView);
         }

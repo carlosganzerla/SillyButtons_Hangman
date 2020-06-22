@@ -21,6 +21,7 @@ namespace SillyButtons.Modules.Tests
             form.userNameList.Text = "name";
             Assert.AreEqual("name", form.UserName);
             Assert.IsTrue(form.startButton.Enabled);
+            Assert.IsFalse(form.viewRecordButton.Enabled);
         }
 
         [Test]
@@ -30,6 +31,7 @@ namespace SillyButtons.Modules.Tests
             form.userNameList.SelectedItem = "second";
             Assert.AreEqual("second", form.UserName);
             Assert.IsTrue(form.startButton.Enabled);
+            Assert.IsTrue(form.viewRecordButton.Enabled);
         }
 
         [Test]
@@ -61,6 +63,7 @@ namespace SillyButtons.Modules.Tests
         public void TestDontEnterAnything()
         {
             Assert.IsFalse(form.startButton.Enabled);
+            Assert.IsFalse(form.viewRecordButton.Enabled);
         }
 
         [Test]
@@ -68,8 +71,43 @@ namespace SillyButtons.Modules.Tests
         {
             form.userNameList.Text = "name";
             Assert.IsTrue(form.startButton.Enabled);
+            Assert.IsFalse(form.viewRecordButton.Enabled);
             form.userNameList.Text = "";
             Assert.IsFalse(form.startButton.Enabled);
+            Assert.IsFalse(form.viewRecordButton.Enabled);
+        }
+
+        [Test]
+        public void TestSelectNameAndThenDelete()
+        {
+            form.userNameList.Items.AddRange(new[] { "first", "second", "third" });
+            form.userNameList.SelectedItem = "second";
+            Assert.IsTrue(form.startButton.Enabled);
+            Assert.IsTrue(form.viewRecordButton.Enabled);
+            form.userNameList.Text = "";
+            Assert.IsFalse(form.startButton.Enabled);
+            Assert.IsFalse(form.viewRecordButton.Enabled);
+
+        }
+
+        [Test]
+        public void TestStartGame()
+        {
+            form.userNameList.Text = "name";
+            form.StartGame += (s, e) => Assert.Pass();
+            form.startButton.PerformClick();
+            Assert.Fail();
+        }
+
+
+        [Test]
+        public void TestViewRecord()
+        {
+            form.userNameList.Items.AddRange(new[] { "first", "second", "third" });
+            form.userNameList.SelectedItem = "second";
+            form.ViewRecord += (s, e) => Assert.Pass();
+            form.viewRecordButton.PerformClick();
+            Assert.Fail();
         }
 
         [TearDown]

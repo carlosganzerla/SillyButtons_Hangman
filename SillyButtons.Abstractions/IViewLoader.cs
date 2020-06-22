@@ -3,5 +3,6 @@
     public interface IViewLoader
     {
         void LoadGameView();
+        void LoadGameRecordView();
     }
 }

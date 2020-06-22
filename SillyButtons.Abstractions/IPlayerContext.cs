@@ -4,9 +4,11 @@ namespace SillyButtons.Abstractions
 {
     public interface IPlayerContext
     {
-        void SetPlayerName(string playerName);
-        void SaveGameRecord(GameRecord record);
-        IEnumerable<string> GetPlayerList();
+        string CurrentPlayer { get; }
+        void SetCurrentPlayer(string playerName);
+        void SaveCurrentPlayerRecord(GameRecord record);
+        IEnumerable<GameRecord> GetCurrentPlayerRecords();
+        IEnumerable<string> GetAllPlayers();
 
     }
 }

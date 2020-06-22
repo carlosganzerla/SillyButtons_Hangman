@@ -44,7 +44,7 @@ namespace SillyButtons.Hangman
         {
             CurrentRecord.GuessedCharacters = actualGame.GuessedCharacters;
             CurrentRecord.GameResult = actualGame.Status;
-            CurrentRecord.WrongGuesses = Constants.MaximumGuesses - actualGame.RemainingGuesses;
+            CurrentRecord.WrongGuesses = AppConstants.MaximumGuesses - actualGame.RemainingGuesses;
         }
 
         public void MakeGuess(char guess)
@@ -58,7 +58,7 @@ namespace SillyButtons.Hangman
         {
             if (CanSaveRecord())
             {
-                context.SaveGameRecord(CurrentRecord);
+                context.SaveCurrentPlayerRecord(CurrentRecord);
                 currentRecordSaved = true;
             }
         }

@@ -11,6 +11,7 @@ Scenario: User logs in with their name
 	Given I am on the login screen
 	When I enter "my name" in the name field
 	Then start button is enabled
+	And view record button is disabled
 
 Scenario: User has never played the game
 	Given I am on the login screen
@@ -29,17 +30,20 @@ Scenario: User selects from the list their own name if they already played
 	And I "my name" have already played the game
 	When I select "my name" from the list
 	Then start button is enabled
+	And view record button is enabled
 
 Scenario: User does not enter anything in the name field
 	Given I am on the login screen
 	When I enter nothing
 	Then start button is disabled
+	And view record button is disabled
 
 Scenario: User enters something but then deletes it
 	Given I am on the login screen
 	When I enter "my name" in the name field
 	And I delete the name which I entered
 	Then start button is disabled
+	And view record button is disabled
 
 Scenario: User starts game
 	Given I am on the login screen
@@ -48,3 +52,10 @@ Scenario: User starts game
 	Then a new game starts
 	And "my name" is stored
 
+Scenario: User check's their record
+	Given I am on the login screen
+	And I "my name" have already played the game
+	When I enter "my name" in the name field
+	And I press view record button
+	Then "my name" is stored
+	And a record window is showm

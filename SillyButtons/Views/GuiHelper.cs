@@ -23,7 +23,6 @@ namespace SillyButtons.Views
                 Enabled = false
             };
         }
-
         public static Bitmap GetHangmanImage(int remainingGuesses)
         {
             string resourceFile = $"hangman_remaining_{remainingGuesses}";

@@ -10,16 +10,19 @@ namespace SillyButtons.Hangman
     public class PlayerContext : IPlayerContext
     {
         private string playerName;
-        private static readonly string recordFilesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Constants.GameRecordsRelativePath);
+        private static readonly string recordFilesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, AppConstants.GameRecordsRelativePath);
 
-        private string RecordFilePath
+        public string RecordFilePath
         {
             get
             {
                 return Path.Combine(recordFilesPath, $"{playerName}.hgr");
             }
         }
-        public void SaveGameRecord(GameRecord record)
+
+        public string CurrentPlayer => playerName;
+
+        public void SaveCurrentPlayerRecord(GameRecord record)
         {
             AssertPlayerName();
             var records = ReadRecordFile();
@@ -41,6 +44,17 @@ namespace SillyButtons.Hangman
             return JsonSerializer.Deserialize<List<GameRecord>>(recordFileText);
         }
 
+        private void SaveRecordsToFile(List<GameRecord> records)
+        {
+            File.WriteAllText(RecordFilePath, JsonSerializer.Serialize(records));
+        }
+
+        public void SetCurrentPlayer(string playerName)
+        {
+            this.playerName = playerName;
+            CreateFileIfNotExists();
+        }
+
         private void CreateFileIfNotExists()
         {
             if (!File.Exists(RecordFilePath))
@@ -50,18 +64,7 @@ namespace SillyButtons.Hangman
             }
         }
 
-        private void SaveRecordsToFile(List<GameRecord> records)
-        {
-            File.WriteAllText(RecordFilePath, JsonSerializer.Serialize(records));
-        }
-
-        public void SetPlayerName(string playerName)
-        {
-            this.playerName = playerName;
-            CreateFileIfNotExists();
-        }
-
-        public IEnumerable<string> GetPlayerList()
+        public IEnumerable<string> GetAllPlayers()
         {
             if (Directory.Exists(recordFilesPath))
             {
@@ -72,6 +75,12 @@ namespace SillyButtons.Hangman
             {
                 return Array.Empty<string>();
             }
+        }
+
+        public IEnumerable<GameRecord> GetCurrentPlayerRecords()
+        {
+            AssertPlayerName();
+            return ReadRecordFile();
         }
     }
 }

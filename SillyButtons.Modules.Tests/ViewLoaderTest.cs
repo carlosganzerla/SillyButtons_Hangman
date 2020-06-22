@@ -1,10 +1,12 @@
 ﻿using Moq;
 using NUnit.Framework;
 using SillyButtons.Abstractions;
+using SillyButtons.Hangman;
 using SillyButtons.Views;
 using System;
+using System.Linq;
 using System.Runtime.InteropServices;
-using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SillyButtons.Modules.Tests
 {
@@ -13,13 +15,27 @@ namespace SillyButtons.Modules.Tests
         private ViewLoader loader;
         private Mock<IWordGenerator> generatorMock;
         private Mock<IHangmanGame> gameMock;
+        private Mock<IPlayerContext> contextMock;
 
         [SetUp]
         public void Setup()
         {
             generatorMock = new Mock<IWordGenerator>();
             gameMock = new Mock<IHangmanGame>();
-            loader = new ViewLoader(gameMock.Object, generatorMock.Object);
+            contextMock = new Mock<IPlayerContext>();
+            loader = new ViewLoader(gameMock.Object, generatorMock.Object, contextMock.Object);
+        }
+
+        [Test]
+        public void TestGameRecordViewLoad()
+        {
+            var record = new GameRecord() { SecretWord = "WORD " };
+            contextMock.Setup(m => m.GetCurrentPlayerRecords()).Returns(new[] { record });
+            contextMock.Setup(m => m.CurrentPlayer).Returns("name");
+            loader.LoadGameRecordView();
+            var window = loader.LastLoadedForm;
+            Assert.AreEqual(AppStrings.GameRecordWindowTitle("name"), window.Text);
+            Assert.AreEqual(AppStrings.GameRecordString(record), window.Controls.OfType<Label>().First().Text);
         }
 
         [Test]
@@ -27,25 +43,11 @@ namespace SillyButtons.Modules.Tests
         {
             gameMock.Setup(m => m.DisplayWord).Returns("   ");
             generatorMock.Setup(m => m.GenerateWord()).Returns("WORD");
-            Task.Delay(1000).ContinueWith((t) => CloseWindow());
             loader.LoadGameView();
             gameMock.Verify(m => m.SetSecretWord("WORD"));
         }
 
-        private void CloseWindow()
-        {
-            var hwnd = GetForegroundWindow();
-            SendMessage(hwnd, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
-        }
-
         [DllImport("user32.dll")]
         static extern IntPtr GetForegroundWindow();
-
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        private static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
-
-        private const uint WM_CLOSE = 0x0010;
-
-
     }
 }

@@ -33,8 +33,7 @@ namespace SillyButtons.Modules.Tests
             viewMock.Raise(m => m.StartGame += null, null, null);
             gameMock.Verify(m => m.SetSecretWord("WORD"));
             viewMock.Verify(m => m.SetScoreWord("    "));
-            viewMock.Verify(m => m.SetStatusMessage(string.Format(Constants.GamePlayingMessage, gameMock.Object.GuessedCharacters,
-                gameMock.Object.RemainingGuesses)));
+            viewMock.Verify(m => m.SetStatusMessage(AppStrings.GamePlayingMessage(gameMock.Object)));
         }
 
         [Test]
@@ -47,7 +46,7 @@ namespace SillyButtons.Modules.Tests
             gameMock.Setup(m => m.RemainingGuesses).Returns(remainingGuesses);
             gameMock.Setup(m => m.DisplayWord).Returns("W   ");
             viewMock.Raise(m => m.GuessMade += null, null, 'A');
-            viewMock.Verify(m => m.SetStatusMessage(string.Format(Constants.GamePlayingMessage, guessesMade, remainingGuesses)));
+            viewMock.Verify(m => m.SetStatusMessage(AppStrings.GamePlayingMessage(gameMock.Object)));
             gameMock.Verify(m => m.MakeGuess('A'));
             viewMock.Verify(m => m.BlockButton('A'));
             viewMock.Verify(m => m.SetScoreWord("W   "));
@@ -62,7 +61,7 @@ namespace SillyButtons.Modules.Tests
             gameMock.Setup(m => m.RemainingGuesses).Returns(0);
             gameMock.Setup(m => m.DisplayWord).Returns("W   ");
             viewMock.Raise(m => m.GuessMade += null, null, 'A');
-            viewMock.Verify(m => m.SetStatusMessage(Constants.GameLostMessage));
+            viewMock.Verify(m => m.SetStatusMessage(AppStrings.GameLostMessage));
             gameMock.Verify(m => m.MakeGuess('A'));
             viewMock.Verify(m => m.BlockButton('A'));
             viewMock.Verify(m => m.SetScoreWord("W   "));
@@ -77,7 +76,7 @@ namespace SillyButtons.Modules.Tests
             gameMock.Setup(m => m.RemainingGuesses).Returns(2);
             gameMock.Setup(m => m.DisplayWord).Returns("WORD");
             viewMock.Raise(m => m.GuessMade += null, null, 'A');
-            viewMock.Verify(m => m.SetStatusMessage(Constants.GameWonMessage));
+            viewMock.Verify(m => m.SetStatusMessage(AppStrings.GameWonMessage));
             gameMock.Verify(m => m.MakeGuess('A'));
             viewMock.Verify(m => m.BlockButton('A'));
             viewMock.Verify(m => m.SetScoreWord("WORD"));

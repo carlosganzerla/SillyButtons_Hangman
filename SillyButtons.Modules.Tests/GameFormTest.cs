@@ -28,16 +28,16 @@ namespace SillyButtons.Modules.Tests
             form.EnableCharacters(true);
             StringBuilder guessesMade = new StringBuilder();
             form.GuessMade += (s, e) => guessesMade.Append(e);
-            Assert.AreEqual(Constants.Alphabet.Length, form.charButtonsPanel.Controls.Count);
+            Assert.AreEqual(AppConstants.Alphabet.Length, form.charButtonsPanel.Controls.Count);
             for (int i = 0; i < form.charButtonsPanel.Controls.Count; i++)
             {
                 var button = form.charButtonsPanel.Controls[i] as System.Windows.Forms.Button;
                 Assert.IsNotNull(button);
                 button.PerformClick();
-                Assert.AreEqual(Constants.Alphabet[i], button.Tag);
-                Assert.AreEqual(Constants.Alphabet[i].ToString(), button.Text);
+                Assert.AreEqual(AppConstants.Alphabet[i], button.Tag);
+                Assert.AreEqual(AppConstants.Alphabet[i].ToString(), button.Text);
             }
-            Assert.AreEqual(Constants.Alphabet, guessesMade.ToString());
+            Assert.AreEqual(AppConstants.Alphabet, guessesMade.ToString());
         }
 
         [Test]

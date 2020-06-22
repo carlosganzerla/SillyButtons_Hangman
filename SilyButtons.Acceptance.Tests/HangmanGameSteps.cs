@@ -87,7 +87,7 @@ namespace SilyButtons.Acceptance.Tests
         public void ThenTheGameIsLost()
         {
             Assert.AreEqual(GameStatus.Lost, game.Status);
-            Assert.AreEqual(Constants.GameLostMessage, form.gameMessage.Text);
+            Assert.AreEqual(AppStrings.GameLostMessage, form.gameMessage.Text);
         }
 
         [Then(@"all characters are blocked")]
@@ -119,7 +119,7 @@ namespace SilyButtons.Acceptance.Tests
         public void ThenTheGameIsWon()
         {
             Assert.AreEqual(GameStatus.Won, game.Status);
-            Assert.AreEqual(Constants.GameWonMessage, form.gameMessage.Text);
+            Assert.AreEqual(AppStrings.GameWonMessage, form.gameMessage.Text);
         }
 
         [Then(@"the game is restarted")]
@@ -130,12 +130,12 @@ namespace SilyButtons.Acceptance.Tests
                 Assert.IsTrue(b.Enabled);
             }
             Assert.IsFalse(form.restartButton.Enabled);
-            Assert.AreEqual(Constants.MaximumGuesses, game.RemainingGuesses);
+            Assert.AreEqual(AppConstants.MaximumGuesses, game.RemainingGuesses);
             Assert.AreEqual("", game.GuessedCharacters);
             Assert.AreEqual(GameStatus.Playing, game.Status);
             Assert.AreEqual("", game.DisplayWord.Trim());
             Assert.IsTrue(Resources.hangman_remaining_6.BitmapEquals((Bitmap)form.hangmanImage.Image));
-            Assert.AreEqual(string.Format(Constants.GamePlayingMessage, "", Constants.MaximumGuesses), form.gameMessage.Text);
+            Assert.AreEqual(AppStrings.GamePlayingMessage(game), form.gameMessage.Text);
         }
 
         private string GetDisplayedCharacters()
